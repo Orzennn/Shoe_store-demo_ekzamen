@@ -1,0 +1,103 @@
+﻿<Window x:Class="Education.Windows.ProductEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Education.Windows"
+        mc:Ignorable="d"
+        Title="Добавление/редактирование товара"
+        Height="600" Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+
+            <!-- ID (только при редактировании) -->
+            <TextBlock x:Name="LblId" Text="ID товара:"/>
+            <TextBox x:Name="TxtId"
+                     Height="30"
+                     Margin="0,4,0,10"
+                     IsReadOnly="True"
+                     Background="#EEEEEE"/>
+
+            <TextBlock Text="Наименование товара:"/>
+            <TextBox x:Name="TxtName"
+                     Height="30"
+                     Margin="0,4,0,10"/>
+
+            <TextBlock Text="Категория товара:"/>
+            <ComboBox x:Name="CmbCategory"
+                      Height="30"
+                      Margin="0,4,0,10"/>
+
+            <TextBlock Text="Описание товара:"/>
+            <TextBox x:Name="TxtDescription"
+                     Height="60"
+                     Margin="0,4,0,10"
+                     TextWrapping="Wrap"
+                     AcceptsReturn="True"/>
+
+            <TextBlock Text="Производитель:"/>
+            <ComboBox x:Name="CmbManufacturer"
+                      Height="30"
+                      Margin="0,4,0,10"/>
+
+            <TextBlock Text="Поставщик:"/>
+            <ComboBox x:Name="CmbSupplier"
+                      Height="30"
+                      Margin="0,4,0,10"/>
+
+            <TextBlock Text="Цена (руб.):"/>
+            <TextBox x:Name="TxtPrice"
+                     Height="30"
+                     Margin="0,4,0,10"/>
+
+            <TextBlock Text="Единица измерения:"/>
+            <ComboBox x:Name="CmbUnit"
+                      Height="30"
+                      Margin="0,4,0,10"/>
+
+            <TextBlock Text="Количество на складе:"/>
+            <TextBox x:Name="TxtQuantity"
+                     Height="30"
+                     Margin="0,4,0,10"/>
+
+            <TextBlock Text="Действующая скидка (%):"/>
+            <TextBox x:Name="TxtDiscount"
+                     Height="30"
+                     Margin="0,4,0,10"/>
+
+            <!-- Фото -->
+            <TextBlock Text="Фото товара:"/>
+            <Image x:Name="ImgProduct"
+                   Height="150"
+                   Margin="0,4,0,6"
+                   Stretch="Uniform"/>
+            <Button Content="Выбрать фото"
+                    Height="30"
+                    Margin="0,0,0,20"
+                    Click="BtnSelectImage_Click"/>
+
+            <!-- Кнопки сохранить / отмена -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0"
+                        Content="Сохранить"
+                        Height="35"
+                        Margin="0,0,5,0"
+                        Click="BtnSave_Click"/>
+
+                <Button Grid.Column="1"
+                        Content="Отмена"
+                        Height="35"
+                        Margin="5,0,0,0"
+                        Click="BtnCancel_Click"/>
+            </Grid>
+
+        </StackPanel>
+    </ScrollViewer>
+</Window>
