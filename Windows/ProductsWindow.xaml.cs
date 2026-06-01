@@ -113,6 +113,15 @@ namespace Education.Windows
                 string imgName = row["image_path"].ToString();
                 string imgPath = GetImagePath(imgName);
 
+                var green = (System.Windows.Media.SolidColorBrush)(new System.Windows.Media.BrushConverter().ConvertFromString("#2E8B57"));
+
+                System.Windows.Media.Brush bg = System.Windows.Media.Brushes.White;
+
+                if (stock == 0)
+                    bg = System.Windows.Media.Brushes.LightBlue;
+                else if (discount > 15)
+                    bg = green;
+
                 _allProducts.Add(new ProductRow
                 {
                     ProductId = Convert.ToInt32(row["product_id"]),
@@ -136,8 +145,12 @@ namespace Education.Windows
                     // Показывать перечёркнутую цену если скидка > 0
                     StrikeVisibility = discount > 0
                         ? Visibility.Visible
-                        : Visibility.Collapsed
+                        : Visibility.Collapsed,
+
+                    RowBackground = bg,
+                    DiscountText = "Действующая\nскидка: " + discount + "%"
                 });
+
             }
 
             ApplyFilters();
@@ -404,5 +417,7 @@ namespace Education.Windows
         public string PriceText { get; set; }
         public string FinalPriceText { get; set; }
         public Visibility StrikeVisibility { get; set; }
+        public System.Windows.Media.Brush RowBackground { get; set; }
+        public string DiscountText { get; set; }
     }
 }

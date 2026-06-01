@@ -93,72 +93,112 @@
 
         <!-- Список товаров -->
         <ListView x:Name="LvProducts"
-                  Grid.Row="2"
-                  Margin="10"
-                  MouseDoubleClick="LvProducts_MouseDoubleClick">
+          Grid.Row="2"
+          Margin="10"
+          MouseDoubleClick="LvProducts_MouseDoubleClick">
 
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Фото" Width="80">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="{Binding ImagePath}"
-                                       Width="60" Height="50"
-                                       Stretch="Uniform"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Padding" Value="2"/>
+                    <Setter Property="Margin" Value="2"/>
+                </Style>
+            </ListView.ItemContainerStyle>
 
-                    <GridViewColumn Header="Наименование"
-                                    DisplayMemberBinding="{Binding ProductName}"
-                                    Width="120"/>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black"
+                    BorderThickness="1"
+                    Padding="6"
+                    Background="{Binding RowBackground}">
 
-                    <GridViewColumn Header="Категория"
-                                    DisplayMemberBinding="{Binding CategoryName}"
-                                    Width="120"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="190"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="140"/>
+                            </Grid.ColumnDefinitions>
 
-                    <GridViewColumn Header="Описание"
-                                    DisplayMemberBinding="{Binding Description}"
-                                    Width="180"/>
+                            <!-- Фото -->
+                            <Border Grid.Column="0"
+                                Width="180"
+                                Height="120"
+                                BorderBrush="Black"
+                                BorderThickness="1"
+                                Margin="0,0,8,0"
+                                Background="White"
+                                ClipToBounds="True">
+                                
+                               <Image Source="{Binding ImagePath}"
+                                   Stretch="Uniform"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Border>
 
-                    <GridViewColumn Header="Производитель"
-                                    DisplayMemberBinding="{Binding ManufacturerName}"
-                                    Width="110"/>
+                            <!-- Текст по центру -->
+                            <StackPanel Grid.Column="1" Margin="0,0,8,0">
 
-                    <GridViewColumn Header="Поставщик"
-                                    DisplayMemberBinding="{Binding SupplierName}"
-                                    Width="110"/>
+                                <TextBlock FontWeight="Bold">
+                            <Run Text="{Binding CategoryName}"/>
+                            <Run Text=" | "/>
+                            <Run Text="{Binding ProductName}"/>
+                                </TextBlock>
 
-                    <GridViewColumn Header="Цена" Width="120">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap">
+                            <Run Text="Описание товара: "/>
+                            <Run Text="{Binding Description}"/>
+                                </TextBlock>
+
+                                <TextBlock>
+                            <Run Text="Производитель: "/>
+                            <Run Text="{Binding ManufacturerName}"/>
+                                </TextBlock>
+
+                                <TextBlock>
+                            <Run Text="Поставщик: "/>
+                            <Run Text="{Binding SupplierName}"/>
+                                </TextBlock>
+
+                                <!-- Цена: если скидка есть — старая перечёркнута красным + новая -->
                                 <StackPanel Orientation="Horizontal">
-                                    <!-- Перечёркнутая цена если есть скидка -->
+                                    <TextBlock Text="Цена: "/>
+
                                     <TextBlock Text="{Binding PriceText}"
-                                               Foreground="Red"
-                                               TextDecorations="Strikethrough"
-                                               Visibility="{Binding StrikeVisibility}"/>
+                                       Foreground="Red"
+                                       TextDecorations="Strikethrough"
+                                       Visibility="{Binding StrikeVisibility}"/>
+
                                     <TextBlock Text="{Binding FinalPriceText}"
-                                               Foreground="Black"
-                                               Margin="4,0,0,0"/>
+                                       Margin="6,0,0,0"/>
                                 </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
 
-                    <GridViewColumn Header="Ед.изм."
-                                    DisplayMemberBinding="{Binding UnitName}"
-                                    Width="60"/>
+                                <TextBlock>
+                            <Run Text="Единица измерения: "/>
+                            <Run Text="{Binding UnitName}"/>
+                                </TextBlock>
 
-                    <GridViewColumn Header="На складе"
-                                    DisplayMemberBinding="{Binding QuantityInStock}"
-                                    Width="80"/>
+                                <TextBlock>
+                            <Run Text="Количество на складе: "/>
+                            <Run Text="{Binding QuantityInStock}"/>
+                                </TextBlock>
+                            </StackPanel>
 
-                    <GridViewColumn Header="Скидка %"
-                                    DisplayMemberBinding="{Binding Discount}"
-                                    Width="70"/>
-                </GridView>
-            </ListView.View>
+                            <!-- Скидка справа -->
+                            <Border Grid.Column="2"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            Padding="6">
+                                <TextBlock Text="{Binding DiscountText}"
+                                   FontWeight="Bold"
+                                   TextAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   TextWrapping="Wrap"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
     </Grid>
 </Window>
